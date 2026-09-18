@@ -49,7 +49,8 @@ Resolved cleanly to `192.232.216.135` via Google's public DNS (8.8.8.8). Simple 
 ### cURL — HTTP Header Inspection
 **Command:** `curl -I https://networkwalks.com`
 
-![WHOIS Scan](screenshots/curl-l.png)
+<img width="975" height="220" alt="image" src="https://github.com/user-attachments/assets/1ba9c6f7-7e25-4b90-be20-3880b9c9e772" />
+
 
 Got back an `HTTP/2 200` along with headers confirming Apache as the server and WordPress-related paths (`/wp-json/`) in the response. A cookie was set on the response, but I'm leaving that value out of this write-up rather than publishing it in a public repo.
 
@@ -63,7 +64,9 @@ Confirmed the site sits behind **ModSecurity (SpiderLabs)**. Good to know for co
 ### DNSRecon — DNS Enumeration
 **Command:** `dnsrecon -d networkwalks.com`
 
-![WHOIS Scan](screenshots/dnsreconresults.png)
+<img width="938" height="760" alt="image" src="https://github.com/user-attachments/assets/a87d178a-91b1-4754-be22-c35e6bf5dae5" />
+
+
 
 ## Footprinting Findings Summary
 
@@ -84,7 +87,8 @@ Checked my machine's network config and confirmed the subnet in use: **192.168.1
 ### Host Discovery
 **Command:** `nmap -sn 192.168.1.0/24`
 
-![WHOIS Scan](screenshots/zenmaplivehostresults.png)
+<img width="765" height="483" alt="image" src="https://github.com/user-attachments/assets/81cac9bb-e3b5-476c-b884-41eafdf5bb69" />
+
 
 The scan checked all 256 addresses in the range and found **6 live hosts**:
 
@@ -100,7 +104,8 @@ The scan checked all 256 addresses in the range and found **6 live hosts**:
 ### Network Topology
 Generated a topology map in Zenmap after the scan. Interestingly, it surfaced one extra host — **192.168.1.200** — that hadn't shown up in the original CLI sweep, which is worth a follow-up scan to confirm whether it's a device that connects intermittently.
 
-![WHOIS Scan](screenshots/zenmaptoplogyresults.png)
+<img width="806" height="478" alt="image" src="https://github.com/user-attachments/assets/75c82c51-5ea2-4137-a2c9-f7568338b3fd" />
+
 
 ## Network Scanning Findings Summary
 
@@ -125,14 +130,13 @@ Generated a topology map in Zenmap after the scan. Interestingly, it surfaced on
 None of these are confirmed vulnerabilities — this was reconnaissance and host discovery only, not exploitation or active vulnerability testing. Each finding is information that a further, authorized assessment would need to investigate before drawing conclusions about real risk.
 
 ## Key Takeaways
-Working through both halves of this exercise made it clear how much information is available about a system before anyone even attempts to interact with it directly — a handful of standard, non-intrusive commands were enough to build a fairly detailed picture of both an external domain and my own home network. It also reinforced why documentation matters as much as the technical work itself: a finding is only useful if it's written up in a way that explains what it means and why it matters, not just what command produced it.
+Working through both halves of this exercise made it clear how much information is available about a system before anyone even attempts to interact with it directly, a handful of standard, non-intrusive commands were enough to build a fairly detailed picture of both an external domain and my own home network. It also reinforced why documentation matters as much as the technical work itself: a finding is only useful if it's written up in a way that explains what it means and why it matters, not just what command produced it.
 
 ## Security & Ethical Considerations
 All footprinting activity in this project was carried out against a domain provided as part of an authorized training exercise. All network scanning was limited to my own home network. None of the tools or techniques documented here should be run against any system without the owner's explicit permission.
 
 ## Author
-Favour Ayang
-Cybersecurity & Ethical Hacking Trainee
+Favour Ayang | Cybersecurity & Ethical Hacking Intern
 
 🔗 LinkedIn: www.linkedin.com/in/favour-ayang-5b15422a5
 💻 GitHub: https://github.com/favourayang1-coder)
