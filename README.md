@@ -35,28 +35,35 @@ Pulled back the standard public registration details: registrar (GoDaddy), domai
 
 ### WhatWeb — Technology Fingerprinting
 **Command:** `whatweb networkwalks.com`
+![WHOIS Scan](screenshots/whois1.png)
 
 This is where most of the useful detail came from. The site runs on Apache and WordPress (version 7.1.1), with the WP Download Manager plugin (3.3.58) and Bootstrap/jQuery in the front end. It also confirmed the HTTP-to-HTTPS redirect, Google Tag Manager, and a public contact email in the page metadata. None of this confirms a vulnerability on its own, but named software versions are exactly the kind of detail that would matter in a deeper, authorized assessment.
 
 ### Nslookup — DNS Resolution
 **Command:** `nslookup networkwalks.com`
 
+![WHOIS Scan](screenshots/nslookup.png)
+
 Resolved cleanly to `192.232.216.135` via Google's public DNS (8.8.8.8). Simple step, but it's the anchor point for anything else you'd want to look at on the network side.
 
 ### cURL — HTTP Header Inspection
 **Command:** `curl -I https://networkwalks.com`
+
+![WHOIS Scan](screenshots/curl-l.png)
 
 Got back an `HTTP/2 200` along with headers confirming Apache as the server and WordPress-related paths (`/wp-json/`) in the response. A cookie was set on the response, but I'm leaving that value out of this write-up rather than publishing it in a public repo.
 
 ### WAFW00F — WAF Detection
 **Command:** `wafw00f https://networkwalks.com`
 
+![WHOIS Scan](screenshots/wafw00f.png)
+
 Confirmed the site sits behind **ModSecurity (SpiderLabs)**. Good to know for context, but a WAF being present doesn't mean the application behind it is fully secure — it's one layer, not a guarantee.
 
 ### DNSRecon — DNS Enumeration
 **Command:** `dnsrecon -d networkwalks.com`
 
-*[Results pending — add your MX/TXT/SPF/service record findings here once you've run this]*
+![WHOIS Scan](screenshots/dnsreconresults.png)
 
 ## Footprinting Findings Summary
 
@@ -77,6 +84,8 @@ Checked my machine's network config and confirmed the subnet in use: **192.168.1
 ### Host Discovery
 **Command:** `nmap -sn 192.168.1.0/24`
 
+![WHOIS Scan](screenshots/zenmaplivehostresults.png)
+
 The scan checked all 256 addresses in the range and found **6 live hosts**:
 
 | IP Address | Hostname | Notes |
@@ -90,6 +99,8 @@ The scan checked all 256 addresses in the range and found **6 live hosts**:
 
 ### Network Topology
 Generated a topology map in Zenmap after the scan. Interestingly, it surfaced one extra host — **192.168.1.200** — that hadn't shown up in the original CLI sweep, which is worth a follow-up scan to confirm whether it's a device that connects intermittently.
+
+![WHOIS Scan](screenshots/zenmaptoplogyresults.png)
 
 ## Network Scanning Findings Summary
 
@@ -120,8 +131,8 @@ Working through both halves of this exercise made it clear how much information 
 All footprinting activity in this project was carried out against a domain provided as part of an authorized training exercise. All network scanning was limited to my own home network. None of the tools or techniques documented here should be run against any system without the owner's explicit permission.
 
 ## Author
-*[Your name]*
+Favour Ayang
 Cybersecurity & Ethical Hacking Trainee
 
-🔗 LinkedIn: *[your link]*
-💻 GitHub: *[your link]*
+🔗 LinkedIn: www.linkedin.com/in/favour-ayang-5b15422a5
+💻 GitHub: https://github.com/favourayang1-coder)
